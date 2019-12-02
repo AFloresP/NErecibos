@@ -1,0 +1,7 @@
+{
+  "name": "NErecibos",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

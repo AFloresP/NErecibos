@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title class="ion-text-center">Cajeros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">Codigo <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input type="text" [(ngModel)]="codigo" name="codigo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nombre <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input type="text" [(ngModel)]="nombre" name="nombre"></ion-input>
+      </ion-item>
+
+        <ion-radio-group [(ngModel)]="estado">
+          <ion-list-header>
+            <ion-label>Estado de Registro</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>Activo</ion-label>
+            <ion-radio slot="start" color="success" value="Activo" ></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Inactivo</ion-label>
+            <ion-radio slot="start" color="tertiary" value="Inactivo" ></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Eliminado</ion-label>
+            <ion-radio slot="start" color="danger" value="Eliminado"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+
+    </ion-list>
+
+      <ion-button expand="block" (click)="registrarCajero()">Registrar Cajero</ion-button>
+
+  <ion-item-divider>
+    <ion-label>
+      Cajeros Registrados
+    </ion-label>
+  </ion-item-divider>
+
+  <ion-list>
+
+    <ion-item *ngFor="let cajero of cajeros_ar">
+      <ion-avatar slot="start">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXweFL9Sg-cgJTuEtSToA3jQh6QDq6yxD7BtwfVPCqzJ7ytzOC&s">
+      </ion-avatar>
+      <ion-label>
+        <h2><b>Codigo: </b>{{ cajero.codigo }}</h2>
+        <h3><b>Nombre: </b>{{ cajero.nombre }}</h3>
+        <p><b>Estado: </b>{{ cajero.estado }}</p>
+        <ion-button size="small" color="danger" (click)="eliminarCajero(cajero.id)">Eliminar</ion-button>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
