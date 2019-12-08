@@ -25,5 +25,9 @@ export class RecibosService {
   deleteRecibo(reciboId: string) {
     this.db.doc('recibos/' + reciboId).delete();
   }
+
+  updateRecibo(c_id, data) {
+    this.db.doc('recibos/' + c_id).update(data);
+  }
 }
 

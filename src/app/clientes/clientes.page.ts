@@ -52,4 +52,13 @@ export class ClientesPage implements OnInit {
       this.clientesService.deleteCliente(clienteId);
   }
 
+  actualizarEstadoCliente(cliente: Cliente, estado: String) {
+    var data = {
+      codigo: cliente.codigo,
+      nombre: cliente.nombre,
+      estado: estado,
+    };
+    this.clientesService.updateCliente(cliente.id, data);
+  }
+
 }

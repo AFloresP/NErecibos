@@ -52,4 +52,12 @@ s
       this.cajerosService.deleteCajero(cajeroId);
   }
 
+  actualizarEstadoCliente(cliente: Cajero, estado: String) {
+    var data = {
+      codigo: cliente.codigo,
+      nombre: cliente.nombre,
+      estado: estado,
+    };
+    this.cajerosService.updateCajero(cliente.id, data);
+  }
 }

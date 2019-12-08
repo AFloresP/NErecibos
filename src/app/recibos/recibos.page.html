@@ -79,7 +79,11 @@
         <h4><b>Cliente: </b>{{ recibo.cliente_nombre }}</h4>
         <h4><b>Cajero: </b>{{ recibo.cajero_nombre }}</h4>
         <p><b>Estado: </b>{{ recibo.estado }}</p>
-        <ion-button size="small" color="danger" (click)="eliminarRecibo(recibo.id)">Eliminar</ion-button>
+        
+        <ion-button size="small" color="success" (click)="actualizarEstadoCliente(recibo,'Activo')">Activar</ion-button>
+        <ion-button size="small" color="tertiary" (click)="actualizarEstadoCliente(recibo, 'Inactivo')">Inactivar</ion-button>
+        <ion-button size="small" color="danger" (click)="actualizarEstadoCliente(recibo, 'Eliminado')">Eliminar</ion-button>
+        <ion-button size="small" color="medium" (click)="eliminarRecibo(recibo.id)">Del</ion-button>
       </ion-label>
     </ion-item>
   </ion-list>

@@ -84,5 +84,14 @@ export class RecibosPage implements OnInit {
       this.recibosService.deleteRecibo(reciboId);
   }
 
-
+  actualizarEstadoCliente(cliente: Recibo, estado: String) {
+    var data = {
+      numero: cliente.numero,
+      cliente_nombre: cliente.cliente_nombre,
+      cajero_nombre: cliente.cajero_nombre,
+      monto: cliente.monto,
+      estado: estado
+    };
+    this.recibosService.updateRecibo(cliente.id, data);
+  }
 }

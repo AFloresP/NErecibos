@@ -25,4 +25,8 @@ export class ClientesService {
   deleteCliente(clienteId: string) {
     this.db.doc('clientes/' + clienteId).delete();
   }
+
+  updateCliente(c_id, data) {
+    this.db.doc('clientes/' + c_id).update(data);
+  }
 }

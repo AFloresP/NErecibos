@@ -59,7 +59,10 @@
         <h2><b>Codigo: </b>{{ cajero.codigo }}</h2>
         <h3><b>Nombre: </b>{{ cajero.nombre }}</h3>
         <p><b>Estado: </b>{{ cajero.estado }}</p>
-        <ion-button size="small" color="danger" (click)="eliminarCajero(cajero.id)">Eliminar</ion-button>
+        <ion-button size="small" color="success" (click)="actualizarEstadoCliente(cajero,'Activo')">Activar</ion-button>
+        <ion-button size="small" color="tertiary" (click)="actualizarEstadoCliente(cajero, 'Inactivo')">Inactivar</ion-button>
+        <ion-button size="small" color="danger" (click)="actualizarEstadoCliente(cajero, 'Eliminado')">Eliminar</ion-button>
+        <ion-button size="small" color="medium" (click)="eliminarCajero(cajero.id)">Del</ion-button>
       </ion-label>
     </ion-item>
   </ion-list>

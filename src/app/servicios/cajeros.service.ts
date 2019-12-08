@@ -26,4 +26,8 @@ export class CajerosService {
     this.db.doc('cajeros/' + cajeroId).delete();
   }
 
+  updateCajero(c_id, data) {
+    this.db.doc('cajeros/' + c_id).update(data);
+  }
+
 }
