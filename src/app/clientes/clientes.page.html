@@ -3,51 +3,13 @@
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-    <ion-title class="ion-text-center">Clientes</ion-title>
-  </ion-toolbar>
+    <ion-title>Clientes</ion-title>     
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-list lines="full" class="ion-no-margin ion-no-padding">
-      <ion-item>
-        <ion-label position="floating">Codigo <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input type="text" [(ngModel)]="codigo" name="codigo"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Nombre <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input type="text" [(ngModel)]="nombre" name="nombre"></ion-input>
-      </ion-item>
-
-        <ion-radio-group [(ngModel)]="estado">
-          <ion-list-header>
-            <ion-label>Estado de Registro</ion-label>
-          </ion-list-header>
-          <ion-item>
-            <ion-label>Activo</ion-label>
-            <ion-radio slot="start" color="success" value="Activo" ></ion-radio>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Inactivo</ion-label>
-            <ion-radio slot="start" color="tertiary" value="Inactivo" ></ion-radio>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Eliminado</ion-label>
-            <ion-radio slot="start" color="danger" value="Eliminado"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-
-    </ion-list>
-
-      <ion-button expand="block" (click)="registrarCliente()">Registrar Cliente</ion-button>
-
-  <ion-item-divider>
-    <ion-label>
-      Clientes Registrados
-    </ion-label>
-  </ion-item-divider>
+    <ion-searchbar showCancelButton (ionInput)="getFilterClientes($event)" placeholder="Buscar Cliente"></ion-searchbar>
+    <ion-button color="success" (click)="openModal()" expand="block">Nuevo Registro</ion-button>
 
   <ion-list>
 
@@ -58,11 +20,14 @@
       <ion-label>
         <h2><b>Codigo: </b>{{ cliente.codigo }}</h2>
         <h3><b>Nombre: </b>{{ cliente.nombre }}</h3>
-        <p><b>Estado: </b>{{ cliente.estado }}</p>
-        <ion-button size="small" color="success" (click)="actualizarEstadoCliente(cliente,'Activo')">Activar</ion-button>
-        <ion-button size="small" color="tertiary" (click)="actualizarEstadoCliente(cliente, 'Inactivo')">Inactivar</ion-button>
-        <ion-button size="small" color="danger" (click)="actualizarEstadoCliente(cliente, 'Eliminado')">Eliminar</ion-button>
-        <ion-button size="small" color="medium" (click)="eliminarCliente(cliente.id)">Del</ion-button>
+        <h3><b>Estado de registro: </b>
+          <ion-badge *ngIf="cliente.estado == 'Activo'" color="success" slot="end">{{ cliente.estado }}</ion-badge>
+          <ion-badge *ngIf="cliente.estado == 'Inactivo'" color="medium" slot="end">{{ cliente.estado }}</ion-badge>
+          <ion-badge *ngIf="cliente.estado == 'Eliminado'" color="tertiary" slot="end">{{ cliente.estado }}</ion-badge>
+        </h3>
+        <ion-button size="small" color="secondary" (click)="verClienteModal(cliente)"><ion-icon name="eye"></ion-icon></ion-button>
+        <ion-button size="small" color="warning" (click)="openModalWithData(cliente)"><ion-icon name="create"></ion-icon></ion-button>
+        <ion-button size="small" color="danger" (click)="presentAlertConfirm(cliente.id)"><ion-icon name="trash"></ion-icon></ion-button>
       </ion-label>
     </ion-item>
   </ion-list>

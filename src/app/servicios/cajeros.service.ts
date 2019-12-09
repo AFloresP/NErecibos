@@ -22,6 +22,10 @@ export class CajerosService {
     return this.db.collection('cajeros').snapshotChanges();
   }
 
+  getCajerosActivos() {
+    return this.db.collection('cajeros', ref => ref.where('estado', '==', "Activo")).snapshotChanges();
+  }
+
   deleteCajero(cajeroId: string) {
     this.db.doc('cajeros/' + cajeroId).delete();
   }

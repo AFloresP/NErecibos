@@ -3,70 +3,13 @@
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-    <ion-title class="ion-text-center">Recibos de Ingreso a Caja</ion-title>
+    <ion-title>Recibos de Ingreso a Caja</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-list lines="full" class="ion-no-margin ion-no-padding">
-      <ion-item>
-        <ion-label position="floating">Numero <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input type="text" [(ngModel)]="numero" name="numero"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Cliente <ion-text color="danger">*</ion-text> </ion-label>
-        <ion-select [(ngModel)]="cliente_nombre" interface="popover">
-          <ion-select-option *ngFor="let cliente of clientes_ar" [value] = "cliente.nombre">
-            {{ cliente.nombre }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-          <ion-label>Cajero <ion-text color="danger">*</ion-text> </ion-label>
-          <ion-select [(ngModel)]="cajero_nombre" interface="popover">
-            <ion-select-option *ngFor="let cajero of cajeros_ar" [value] = "cajero.nombre">
-              {{ cajero.nombre }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Monto <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input type="number" [(ngModel)]="monto" name="monto"></ion-input>
-      </ion-item>
-
-        <ion-radio-group [(ngModel)]="estado">
-          <ion-list-header>
-            <ion-label>Estado de Registro</ion-label>
-          </ion-list-header>
-          <ion-item>
-            <ion-label>Activo</ion-label>
-            <ion-radio slot="start" color="success" value="Activo" ></ion-radio>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Inactivo</ion-label>
-            <ion-radio slot="start" color="tertiary" value="Inactivo" ></ion-radio>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Eliminado</ion-label>
-            <ion-radio slot="start" color="danger" value="Eliminado"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-
-    </ion-list>
-
-      <ion-button expand="block" (click)="registrarRecibo()">Registrar Recibo</ion-button>
-
-  <ion-item-divider>
-    <ion-label>
-      Recibos Registrados
-    </ion-label>
-  </ion-item-divider>
-
+    <ion-searchbar showCancelButton (ionInput)="getFilterRecibos($event)" placeholder="Buscar Recibo"></ion-searchbar>
+    <ion-button color="success" (click)="openModal()" expand="block">Nuevo Registro</ion-button>
   <ion-list>
 
     <ion-item *ngFor="let recibo of recibos_ar">
@@ -78,12 +21,15 @@
         <h3><b>Monto: </b>{{ recibo.monto }}</h3>
         <h4><b>Cliente: </b>{{ recibo.cliente_nombre }}</h4>
         <h4><b>Cajero: </b>{{ recibo.cajero_nombre }}</h4>
-        <p><b>Estado: </b>{{ recibo.estado }}</p>
+        <h3><b>Estado de registro: </b>
+          <ion-badge *ngIf="recibo.estado == 'Activo'" color="success" slot="end">{{ recibo.estado }}</ion-badge>
+          <ion-badge *ngIf="recibo.estado == 'Inactivo'" color="medium" slot="end">{{ recibo.estado }}</ion-badge>
+          <ion-badge *ngIf="recibo.estado == 'Eliminado'" color="tertiary" slot="end">{{ recibo.estado }}</ion-badge>
+        </h3>
         
-        <ion-button size="small" color="success" (click)="actualizarEstadoCliente(recibo,'Activo')">Activar</ion-button>
-        <ion-button size="small" color="tertiary" (click)="actualizarEstadoCliente(recibo, 'Inactivo')">Inactivar</ion-button>
-        <ion-button size="small" color="danger" (click)="actualizarEstadoCliente(recibo, 'Eliminado')">Eliminar</ion-button>
-        <ion-button size="small" color="medium" (click)="eliminarRecibo(recibo.id)">Del</ion-button>
+        <ion-button size="small" color="secondary" (click)="verReciboModal(recibo)"><ion-icon name="eye"></ion-icon></ion-button>
+        <ion-button size="small" color="warning" (click)="openModalWithData(recibo)"><ion-icon name="create"></ion-icon></ion-button>
+        <ion-button size="small" color="danger" (click)="presentAlertConfirm(recibo.id)"><ion-icon name="trash"></ion-icon></ion-button>
       </ion-label>
     </ion-item>
   </ion-list>

@@ -22,6 +22,10 @@ export class ClientesService {
     return this.db.collection('clientes').snapshotChanges();
   }
 
+  getClientesActivos() {
+    return this.db.collection('clientes', ref => ref.where('estado', '==', "Activo")).snapshotChanges();
+  }
+  
   deleteCliente(clienteId: string) {
     this.db.doc('clientes/' + clienteId).delete();
   }

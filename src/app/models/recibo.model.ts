@@ -4,4 +4,5 @@ export class Recibo {
     cliente_nombre: string;
     cajero_nombre: string;
     monto: number;
+    estado: string;
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CajerosService } from '../servicios/cajeros.service'
 import { Cajero } from '../models/cajero.model';
+import { ModalController } from '@ionic/angular';
+import { NewcajeroPage } from "../modals/modalCajero/newcajero/newcajero.page";
+import { VercajeroPage } from "../modals/modalCajero/vercajero/vercajero.page";
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cajeros',
@@ -8,18 +12,8 @@ import { Cajero } from '../models/cajero.model';
   styleUrls: ['./cajeros.page.scss'],
 })
 export class CajerosPage implements OnInit {
-s
-  codigo: string;
-  nombre: string;
-  estado: string;
-
-  cajeros_ar: Cajero[];
-
-  constructor(public cajerosService: CajerosService) { }
 
   ngOnInit() {
-    this.reset_campos();
-
     this.cajerosService.getCajeros().subscribe(data => {
       this.cajeros_ar = data.map(e => {
         return {
@@ -27,37 +21,99 @@ s
           ...e.payload.doc.data()
         } as Cajero;
       })
+      this.loaded_cajeros_ar = this.cajeros_ar;
     });
+
   }
 
-  reset_campos() {
-    this.codigo = "";
-    this.nombre = "";
-    this.estado = "Activo";
+  cajeros_ar: Cajero[];
+  loaded_cajeros_ar: Cajero[];
+
+  constructor(public cajerosService: CajerosService,
+    private modalController: ModalController,
+    public alertController: AlertController) { }
+
+    async openModal() {
+      const modal = await this.modalController.create({
+        component: NewcajeroPage
+      });
+      return await modal.present();
+    }
+
+    async openModalWithData(cajero : Cajero) {
+      const modal = await this.modalController.create({
+        component: NewcajeroPage,
+        componentProps: {
+          c_id: cajero.id,
+          c_codigo: cajero.codigo,
+          c_nombre: cajero.nombre,
+          c_estado: cajero.estado
+        }
+      });
+      return await modal.present();
+    }
+
+    async verCajeroModal(cajero : Cajero) {
+      const modal = await this.modalController.create({
+        component: VercajeroPage,
+        componentProps: {
+          c_id: cajero.id,
+          c_codigo: cajero.codigo,
+          c_nombre: cajero.nombre,
+          c_estado: cajero.estado
+        }
+      });
+      return await modal.present();
+    }
+
+  initializeItems(): void {
+    this.cajeros_ar = this.loaded_cajeros_ar;
   }
 
-  registrarCajero() {
+  getFilterCajeros(evt) {
+    this.initializeItems();
 
-    var data = {
-      codigo: this.codigo,
-      nombre: this.nombre,
-      estado: this.estado
-    };
-    this.cajerosService.createCajero(data);
-    this.reset_campos();
-    //console.log(data);
+    const searchTerm = evt.srcElement.value;
+    if (!searchTerm) {
+      return;
+    }
+
+    this.cajeros_ar = this.cajeros_ar.filter(currentCajero => {
+      if (currentCajero.nombre && searchTerm) {
+        if (currentCajero.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || currentCajero.codigo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
   }
 
   eliminarCajero(cajeroId: string) {
       this.cajerosService.deleteCajero(cajeroId);
   }
 
-  actualizarEstadoCliente(cliente: Cajero, estado: String) {
-    var data = {
-      codigo: cliente.codigo,
-      nombre: cliente.nombre,
-      estado: estado,
-    };
-    this.cajerosService.updateCajero(cliente.id, data);
+  async presentAlertConfirm(cajeroId: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: '¿Deseas eliminar el cajero?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            //console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.eliminarCajero(cajeroId);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
+
 }

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title class="ion-text-center">Informacion de Cajero</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list class="ion-text-center" lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item>
+        <h4>Codigo:</h4>
+        <h4 slot="end"><b>{{ c_codigo }}</b></h4>
+    </ion-item>
+
+    <ion-item>
+        <h4>Nombre:</h4>
+        <h4 slot="end"><b>{{ c_nombre }}</b></h4>
+    </ion-item>
+
+    <ion-item>
+        <h4>Estado de registro:</h4>
+          <ion-badge *ngIf="c_estado == 'Activo'" color="success" slot="end">{{ c_estado }}</ion-badge>
+          <ion-badge *ngIf="c_estado == 'Inactivo'" color="medium" slot="end">{{ c_estado }}</ion-badge>
+          <ion-badge *ngIf="c_estado == 'Eliminado'" color="tertiary" slot="end">{{ c_estado }}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

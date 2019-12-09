@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-title >Informacion de Recibo</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <ion-list class="ion-text-center" lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+          <h4>Numero:</h4>
+          <h4 slot="end"><b>{{ r_numero }}</b></h4>
+      </ion-item>
+  
+      <ion-item>
+          <h4>Cliente:</h4>
+          <h4 slot="end"><b>{{ r_cliente_nombre }}</b></h4>
+      </ion-item>
+
+      <ion-item>
+          <h4>Cajero:</h4>
+          <h4 slot="end"><b>{{ r_cajero_nombre }}</b></h4>
+      </ion-item>
+  
+      <ion-item>
+          <h4>Estado de registro:</h4>
+            <ion-badge *ngIf="r_estado == 'Activo'" color="success" slot="end">{{ r_estado }}</ion-badge>
+            <ion-badge *ngIf="r_estado == 'Inactivo'" color="medium" slot="end">{{ r_estado }}</ion-badge>
+            <ion-badge *ngIf="r_estado == 'Eliminado'" color="tertiary" slot="end">{{ r_estado }}</ion-badge>
+      </ion-item>
+    </ion-list>
+  </ion-content>

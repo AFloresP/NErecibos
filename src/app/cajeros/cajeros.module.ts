@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { CajerosPageRoutingModule } from './cajeros-routing.module';
 
 import { CajerosPage } from './cajeros.page';
+import { NewcajeroPage } from "../modals/modalCajero/newcajero/newcajero.page";
+import { VercajeroPage } from "../modals/modalCajero/vercajero/vercajero.page";
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { CajerosPage } from './cajeros.page';
     IonicModule,
     CajerosPageRoutingModule
   ],
-  declarations: [CajerosPage]
+  declarations: [CajerosPage, NewcajeroPage, VercajeroPage],
+  entryComponents: [NewcajeroPage, VercajeroPage]
 })
 export class CajerosPageModule {}

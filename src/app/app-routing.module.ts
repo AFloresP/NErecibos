@@ -26,6 +26,30 @@ const routes: Routes = [
   {
     path: 'recibos',
     loadChildren: () => import('./recibos/recibos.module').then( m => m.RecibosPageModule)
+  },
+  {
+    path: 'newcajero',
+    loadChildren: () => import('./modals/modalCajero/newcajero/newcajero.module').then( m => m.NewcajeroPageModule)
+  },
+  {
+    path: 'vercajero',
+    loadChildren: () => import('./modals/modalCajero/vercajero/vercajero.module').then( m => m.VercajeroPageModule)
+  },
+  {
+    path: 'vercliente',
+    loadChildren: () => import('./modals/modalCliente/vercliente/vercliente.module').then( m => m.VerclientePageModule)
+  },
+  {
+    path: 'newcliente',
+    loadChildren: () => import('./modals/modalCliente/newcliente/newcliente.module').then( m => m.NewclientePageModule)
+  },
+  {
+    path: 'newrecibo',
+    loadChildren: () => import('./modals/modalRecibo/newrecibo/newrecibo.module').then( m => m.NewreciboPageModule)
+  },
+  {
+    path: 'verrecibo',
+    loadChildren: () => import('./modals/modalRecibo/verrecibo/verrecibo.module').then( m => m.VerreciboPageModule)
   }
 ];
 

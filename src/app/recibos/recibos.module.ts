@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { RecibosPageRoutingModule } from './recibos-routing.module';
 
 import { RecibosPage } from './recibos.page';
+import { NewreciboPage } from "../modals/modalRecibo/newrecibo/newrecibo.page";
+import { VerreciboPage } from "../modals/modalRecibo/verrecibo/verrecibo.page";
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { RecibosPage } from './recibos.page';
     IonicModule,
     RecibosPageRoutingModule
   ],
-  declarations: [RecibosPage]
+  declarations: [RecibosPage, NewreciboPage, VerreciboPage],
+  entryComponents: [NewreciboPage, VerreciboPage]
 })
 export class RecibosPageModule {}
